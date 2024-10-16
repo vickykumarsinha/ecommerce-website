@@ -7,8 +7,14 @@ function CheckAuth({ isAuthenticated, user, children }) {
 
     const location = useLocation()  // get user current location
 
+    console.log(location.pathname, isAuthenticated);
     // Not Authenticated and accessing any page redirect to login page
-    if (!isAuthenticated && !(location.pathname.includes("/login") || location.pathname.includes("/register"))) {
+    if (!isAuthenticated && 
+        !(
+            location.pathname.includes("/login") || 
+            location.pathname.includes("/register")
+        )
+    ) {
         return <Navigate to="/auth/login" />;
     }
 

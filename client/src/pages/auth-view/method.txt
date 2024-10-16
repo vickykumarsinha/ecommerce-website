@@ -1,0 +1,43 @@
+To create login and register page
+
+1. create auth-controller.js from 'server\controllers\auth\auth-controller.js'
+
+2. Use that route in 'server\routes\auth\auth-routes.js'
+
+    router.post('/register', register);
+    router.post('/login', login);
+
+3. create slice and Asyncthunk in auth-slice 'client\src\store\auth-slice\index.js'
+
+    export const loginUser = createAsyncThunk('/auth/login',
+
+        async(formData) => {
+            const response = await axios.post('http://localhost:5001/api/auth/login', formData, {
+                withCredentials: true
+            })
+            return response.data;
+        }
+    )
+
+4. Add extra reducers which defines the sate of request
+
+    extraReducers: (builder) => {
+        builder.addCase(registerUser.pending,  (state)=> {
+            state.isLoading = true;
+
+        }).addCase(registerUser.fulfilled, (state) => {
+            state.isLoading = false;
+            state.user = null;  // no user info saved after register
+            state.isAuthenticated = false;
+
+        }).addCase(registerUser.rejected, (state) => {
+            state.isLoading = false;
+            state.user = null;
+            state.isAuthenticated = false;
+        }).addCase(loginUser.pending,  (state)=> {
+            state.isLoading = true;
+
+        })}
+
+5. call it from login/register component at onSubmit()
+

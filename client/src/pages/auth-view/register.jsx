@@ -4,6 +4,7 @@ import CommonForm from "@/components/common/form";
 import { registerFormControl } from "@/config";
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/store/auth-slice";
+import { toast } from "@/hooks/use-toast";
 
 const initialState = {
   userName : 'vicky',
@@ -21,7 +22,19 @@ function AuthRegister () {
     event.preventDefault()    // prevent reloading
     // dispath data && on success navigate to login page
     dispatch(registerUser(formData)).then( (data)=> {
-      console.log(data);
+
+      // if success send a toast with mssg
+      if(data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+        navigate("/auth/login");
+      }
+      else {toast({
+        title: data?.payload?.message,
+        variant : 'destructive',
+      });
+    }
     })
   }
   
