@@ -16,6 +16,8 @@ import CheckAuth from './components/common/check-auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { checkAuth } from './store/auth-slice';
+import vks from './../public/vks.png';
+import { SearchIcon } from 'lucide-react';
 
 function App() {
 
@@ -32,8 +34,25 @@ function App() {
   console.log(isLoading, user);
 
   return (
-    <div className='flex flex-col overflow-hidden bg-blue'>
-      <h2> Vicky's Ecommerce</h2>
+    <div className='flex flex-col overflow-hidden bg-blue-500'>
+      <div className='flex items-center gap-4 px-10 py-2'>
+      <div className="flex items-center gap-4">
+          <img src={vks} className="w-12" alt="Vicky's Logo" />
+          <span className="font-extrabold text-2xl">Vicky's Ecommerce</span>
+        </div>
+
+        {/* Centered Search Box */}
+        <div className="flex-grow flex justify-center">
+          <div className="flex items-center bg-white rounded-full px-4 py-1 w-full max-w-md">
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="flex-grow px-2 py-1 text-black outline-none"
+            />
+            <SearchIcon className="text-gray-500" />
+          </div>
+        </div>
+    </div>
 
       <Routes>
         <Route path="/auth" element={   // CheckAuth from common for Auth && Redirecting
